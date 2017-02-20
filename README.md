@@ -4,4 +4,4 @@ Ruby on Rails + React.js
 
 Heroku URL
 
-https://stories-new.herokuapp.com
+https://stories-new.herokuapp.com 
