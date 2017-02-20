@@ -31,18 +31,17 @@ module SearchableUser
     end
   end
 
-
-  def as_indexed_json(options ={})
-    self.as_json({
-      methods: [:avatar_url], only: [:username, :email, :avatar_url, :slug]
-    })
-  end
-
   def index_document
     ElasticsearchIndexJob.perform_later('index', 'User', self.id)
     self.posts.find_each do |post|
       ElasticsearchIndexJob.perform_later('index', 'Post', post.id) if post.published?
     end
+  end
+
+  def as_indexed_json(options ={})
+    self.as_json({
+      methods: [:avatar_url], only: [:username, :email, :avatar_url, :slug]
+    })
   end
 
   def delete_document

@@ -29,6 +29,10 @@ module SearchableTag
     end
   end
 
+  def delete_document
+    ElasticsearchIndexJob.perform_later('delete', 'Tag', self.id)
+  end
+  
   def as_indexed_json(options ={})
     self.as_json({
       only: [:name, :slug]
@@ -39,9 +43,6 @@ module SearchableTag
     ElasticsearchIndexJob.perform_later('index', 'Tag', self.id)
   end
 
-  def delete_document
-    ElasticsearchIndexJob.perform_later('delete', 'Tag', self.id)
-  end
 
   INDEX_OPTIONS =
     { number_of_shards: 1, analysis: {
