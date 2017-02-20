@@ -1,6 +1,5 @@
-# README
+#KStories
 
--Backend 
-  Ruby on Rails
--Frontend
-  React.js
+Heroku URL
+
+https://noteabl.com
